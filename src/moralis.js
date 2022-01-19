@@ -3,7 +3,7 @@ import { useMoralis } from "react-moralis";
 
 const Moralis = () => {
   const { authenticate, isAuthenticated, user } = useMoralis();
-  const walletAddress = user.get("ethAddress");
+
   if (!isAuthenticated) {
     return (
       <div>
@@ -11,7 +11,7 @@ const Moralis = () => {
       </div>
     );
   }
-
+  const walletAddress = user.get("ethAddress");
   return (
     <div>
       <h1>Welcome {walletAddress}</h1>

@@ -10,9 +10,7 @@ ReactDOM.render(
     appId="2cSHDGiEZDzvppNjQ8p9zbu41O8AHCEdOlgTKBBC"
     serverUrl="https://xxxwounmuz0x.usemoralis.com:2053/server"
   >
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </MoralisProvider>,
   document.getElementById("root")
 );
