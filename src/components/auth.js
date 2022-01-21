@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import detectEthereumProvider from "@metamask/detect-provider";
 import Moralis from "./moralis";
+import { ethers } from "ethers";
+import Wallet from "./wallet";
 import Gun from "gun";
 require("gun/sea");
 
@@ -11,31 +14,36 @@ const gun = Gun({
   ],
 });
 
-const Auth = () => {
+const Auth = (props) => {
+  const walletAddress = props.wallet;
+
   //Database
   let client = gun.user();
 
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
 
-  const signUp = () =>
-    client.create(username, pass, alert("User signed up successfully!"));
+  const signUp = () => {
+    client.create(walletAddress, pass, alert("User signed up successfully!"));
+    //  client.get(walletAddress).put({username:"username"});
+    console.log(walletAddress);
+  };
 
-  //console.log("signed up");
-
-  const signIn = () =>
+  const signIn = () => {
     client.auth(
-      username,
+      walletAddress,
       pass,
       alert("Sign in successful!"),
       ({ err }) => err && alert(err)
     );
+    console.log(walletAddress);
+  };
 
   //Gun User
   client = gun.user().recall({ sessionStorage: true });
 
   return (
-    <div>
+    <div style={{ padding: 30 }}>
       <form>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">username</label>
