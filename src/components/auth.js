@@ -4,6 +4,7 @@ import Moralis from "./moralis";
 import { ethers } from "ethers";
 import Wallet from "./wallet";
 import Gun from "gun";
+import Chat from "./chat";
 require("gun/sea");
 
 // initialize gun locally
@@ -88,6 +89,9 @@ const Auth = (props) => {
           Sign up
         </button>
       </form>
+      <div>
+        <Chat wallet={walletAddress} user={client} />
+      </div>
     </div>
   );
 };

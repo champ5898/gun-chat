@@ -5,18 +5,11 @@ import Auth from "./auth";
 import User from "gun/sea";
 require("gun/sea");
 
-// initialize gun locally
-const gun = Gun({
-  peers: [
-    "http://localhost:3030/gun",
-    "https://gun-manhattan.herokuapp.com/gun",
-  ],
-});
-
 const Chat = (props) => {
   const walletAddress = props.wallet;
+  const user = props.user;
   const [message, setMessage] = useState("");
-  let user = gun.user();
+
   const saveMessage = () => {
     if (user.is) {
       alert("sent");

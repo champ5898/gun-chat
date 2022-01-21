@@ -29,9 +29,6 @@ export default function App() {
       <div>
         <Auth wallet={walletAddress} />
       </div>
-      <div>
-        <Chat wallet={walletAddress} />
-      </div>
     </div>
   );
 }
