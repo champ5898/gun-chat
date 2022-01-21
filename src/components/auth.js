@@ -17,6 +17,7 @@ const gun = Gun({
 
 const Auth = (props) => {
   const walletAddress = props.wallet;
+  const [show, setshow] = useState(true);
 
   //Database
   let client = gun.user();
@@ -25,7 +26,12 @@ const Auth = (props) => {
   const [pass, setPass] = useState("");
 
   const signUp = () => {
-    client.create(walletAddress, pass, alert("User signed up successfully!"));
+    client.create(
+      walletAddress,
+      pass,
+      alert("User signed up successfully!"),
+      alert("Now proceed to sign in")
+    );
     //  client.get(walletAddress).put({username:"username"});
     console.log(walletAddress);
   };
@@ -38,6 +44,7 @@ const Auth = (props) => {
       ({ err }) => err && alert(err)
     );
     console.log(walletAddress);
+    setshow(false);
   };
 
   //Gun User
@@ -45,53 +52,67 @@ const Auth = (props) => {
 
   return (
     <div style={{ padding: 30 }}>
-      <form>
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">username</label>
-          <input
-            type="username"
-            value={username}
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-            id="username"
-            aria-describedby="emailHelp"
-            placeholder="Enter username"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            value={pass}
-            onChange={(e) => {
-              setPass(e.target.value);
-            }}
-            id="pass"
-            placeholder="Password"
-          />
-        </div>
-
-        <button
-          id="in"
-          type="button"
-          className="btn btn-primary"
-          onClick={signIn}
-        >
-          Sign in
-        </button>
-        <button
-          id="up"
-          type="button"
-          className="btn btn-primary"
-          onClick={signUp}
-        >
-          Sign up
-        </button>
-      </form>
       <div>
-        <Chat wallet={walletAddress} user={client} />
+        <Moralis user={client} />
       </div>
+      {show ? (
+        <>
+          <form>
+            <div className="form-group">
+              <label htmlFor="exampleInputEmail1">username</label>
+              <input
+                type="username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+                id="username"
+                aria-describedby="emailHelp"
+                placeholder="Enter username"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleInputPassword1">Password</label>
+              <input
+                type="password"
+                value={pass}
+                onChange={(e) => {
+                  setPass(e.target.value);
+                }}
+                id="pass"
+                placeholder="Password"
+              />
+            </div>
+
+            <button
+              id="in"
+              type="button"
+              className="btn btn-primary"
+              onClick={signIn}
+            >
+              Sign in
+            </button>
+            <button
+              id="up"
+              type="button"
+              className="btn btn-primary"
+              onClick={signUp}
+            >
+              Sign up
+            </button>
+          </form>
+        </>
+      ) : null}
+      {show ? null : (
+        <>
+          <div>
+            <Chat wallet={walletAddress} user={client} passwaord={pass} />
+          </div>
+          <div>
+            <Wallet wallet={walletAddress} user={client} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

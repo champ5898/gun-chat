@@ -24,9 +24,6 @@ export default function App() {
   return (
     <div style={{ padding: 30 }}>
       <div>
-        <Moralis />
-      </div>
-      <div>
         <Auth wallet={walletAddress} />
       </div>
     </div>
